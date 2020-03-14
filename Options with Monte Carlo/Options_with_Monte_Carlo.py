@@ -54,19 +54,18 @@ comp_bs_put(S0,K,T,r,q,sigma)
 
 # Call
 dt=T/n_steps # fraction of a year
-call = np.zeros([n_simulation], dtype=float)
-x = range(0, int(n_steps), 1)
+call = np.zeros([n_simulation], dtype=float) # return a new array of given shape and type with zeros
+x = range(0, int(n_steps), 1) # range(start, stop, step)
 for j in range(0, n_simulation):
     ST=S0
 for i in x[:-1]:
-    e=sp.random.normal()
+    e=np.random.normal() # generating random numbers
     ST*=np.exp((r-0.5*sigma*sigma)*dt+sigma*e*np.sqrt(dt)) # simulation of ending prices
     call[j]=max(ST-K,0)
     call_price= np.mean(call)*np.exp(-r*T) # take average values of ending and calculate present value
-    print('call price =', round(call_price, 3)) # returns number of simulations-1 (why?) call prices
+    print('call price =', np.round(call_price, 3)) # returns number of simulations-1 (why?) call prices
 
 # Put
-
 
 ### PRICING BARRIER OPTIONS USING MONTE CARLO SIMULAITON ###
 def down_and_in_put(S0,K,H,T,r,sigma,n_simulation):
